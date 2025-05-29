@@ -6,14 +6,15 @@
 #include <unistd.h>
 #include <random>
 
-#define SERVERPORT 8081
-
 using namespace std;
 
 const char oper[5] = "+-*/";
 
-int main()
+int main(int argc, char *argv[])
 {
+    int SERVERPORT = atoi(argv[1]);
+    cout << SERVERPORT << endl;
+    sleep(5);
     srand((unsigned)time(NULL));
 
     int socketfd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -31,9 +32,8 @@ int main()
     while (1)
     {
         sprintf(send_data, "%d %c %d", rand() % 100, oper[rand() % 4], rand() % 100);
-        cout << send_data << " = ";
+        cout << send_data << " = " << flush;
         sendto(socketfd, (const char *)send_data, sizeof(send_data), MSG_CONFIRM, (const struct sockaddr *)&servaddr, sizeof(servaddr));
-
         ssize_t n = recvfrom(socketfd, rec, sizeof(rec) - 1, 0, (sockaddr *)&servaddr, &len);
 
         if (n < 0)
