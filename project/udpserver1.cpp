@@ -104,7 +104,7 @@ int main()
 
         // forking
 
-        char arg1[3], arg2[3], arg3[2];
+        char arg1[3], arg2[3], arg3[5];
         sprintf(arg1, "%d", pipesend[i][0]);
         sprintf(arg2, "%d", piperead[i][1]);
         sprintf(arg3, "%d", i);
