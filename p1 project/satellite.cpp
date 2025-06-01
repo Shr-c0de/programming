@@ -19,9 +19,6 @@
 
 using namespace std;
 
-void func(char *buffer)
-{
-}
 
 int main(int argc, char *argv[])
 {
