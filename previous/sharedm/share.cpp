@@ -11,7 +11,8 @@
 
 const char *data = "Hello there!";
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
   int status;
   int segment_id;
 
@@ -24,21 +25,28 @@ int main(int argc, char *argv[]) {
   printf("%s\n", sh_mem);
 
   pid_t child_pid = fork();
-  if (child_pid == -1) perror("fork");
+  if (child_pid == -1)
+    perror("fork");
 
-  if (child_pid == 0) {
+  if (child_pid == 0)
+  {
     strcpy(sh_mem, "NEW DATA Stored by Child Process\0");
 
     printf("child pid - %d\n", getpid());
+
     exit(EXIT_SUCCESS);
-  } else {
+  }
+  else
+  {
     pid_t ret = waitpid(child_pid, &status, WUNTRACED | WCONTINUED);
-    if (ret == -1) perror("waitpid");
+    if (ret == -1)
+      perror("waitpid");
 
     if (WIFEXITED(status))
       printf("Child exited, status - %d\n", WEXITSTATUS(status));
 
-    if (WEXITSTATUS(status) == 0) printf("%s\n", sh_mem);
+    if (WEXITSTATUS(status) == 0)
+      printf("%s\n", sh_mem);
   }
 
   shmdt(sh_mem);
